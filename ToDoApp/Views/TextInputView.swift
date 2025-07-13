@@ -21,6 +21,7 @@ struct TextInputView: View {
                             dismiss()
                         }
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     .textContentType(.jobTitle)
             }
             .toolbar {

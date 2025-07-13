@@ -55,7 +55,7 @@ final class ToDoViewModel {
         
         do {
             /// 1 second delay
-            try await simulateNetworkOperation(delay: 1_000_000_000)
+            try await simulateNetworkOperation(delay: 1)
             items.append(ToDoItem(title: title))
             viewState = .list(items)
         } catch {
@@ -69,7 +69,7 @@ final class ToDoViewModel {
         
         do {
             /// 0.8 seconds delay
-            try await simulateNetworkOperation(delay: 800_000_000)
+            try await simulateNetworkOperation(delay: 0.8)
             items.removeAll { $0.id == item.id }
             viewState = items.isEmpty ? .empty : .list(items)
         } catch {
@@ -83,7 +83,7 @@ final class ToDoViewModel {
         
         do {
             /// 0.8 seconds delay
-            try await simulateNetworkOperation(delay: 800_000_000)
+            try await simulateNetworkOperation(delay: 0.8)
             if let index = items.firstIndex(where: { $0.id == item.id }) {
                 items[index] = item
                 viewState = .list(items)
@@ -99,7 +99,7 @@ final class ToDoViewModel {
         
         do {
             /// 0.5 seconds delay
-            try await simulateNetworkOperation(delay: 500_000_000)
+            try await simulateNetworkOperation(delay: 0.5)
             if let index = items.firstIndex(where: { $0.id == item.id }) {
                 items[index].isCompleted.toggle()
                 viewState = .list(items)
@@ -115,7 +115,7 @@ final class ToDoViewModel {
         
         do {
             /// 1.5 seconds delay
-            try await simulateNetworkOperation(delay: 1_500_000_000)
+            try await simulateNetworkOperation(delay: 1.5)
             viewState = items.isEmpty ? .empty : .list(items)
         } catch {
             viewState = .error(.loadItemsFailed)
@@ -136,9 +136,9 @@ final class ToDoViewModel {
     }
     
     // Simulates a network operation with potential failure
-    private func simulateNetworkOperation(delay: UInt64) async throws {
+    private func simulateNetworkOperation(delay: Double) async throws {
         /// Network delay
-        try await Task.sleep(nanoseconds: delay)
+        try await Task.sleep(for: .seconds(delay))
         
         /// Potential error (10% chance)
         if Int.random(in: 1...10) == 1 {
