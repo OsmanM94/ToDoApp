@@ -70,6 +70,21 @@ private struct ToDoToolbarMenu: View {
                 viewModel.showAddItemSheet.toggle()
             }
             
+            PasteButton(payloadType: String.self) { strings in
+                Task {
+                    /// Handle multiple strings if you paste multiple lines
+                    /// Handy and very underused API
+                    for string in strings {
+                        let trimmedString = string.trimmingCharacters(in: .whitespacesAndNewlines)
+                        if !trimmedString.isEmpty {
+                            await viewModel.addItem(title: trimmedString)
+                        }
+                    }
+                }
+            }
+            
+            Divider()
+            
             EditButton()
                 .disabled(viewModel.items.isEmpty)
             

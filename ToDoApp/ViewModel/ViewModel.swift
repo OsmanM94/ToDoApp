@@ -2,29 +2,6 @@
 
 import Foundation
 
-enum ToDoError {
-    case addItemFailed
-    case removeItemFailed
-    case updateItemFailed
-    case toggleCompletionFailed
-    case loadItemsFailed
-    
-    var message: String {
-        switch self {
-        case .addItemFailed:
-            return "Failed to add item."
-        case .removeItemFailed:
-            return "Failed to remove item."
-        case .updateItemFailed:
-            return "Failed to update item."
-        case .toggleCompletionFailed:
-            return "Failed to toggle completion."
-        case .loadItemsFailed:
-            return "Failed to load items."
-        }
-    }
-}
-
 @Observable
 final class ToDoViewModel {
     
@@ -132,6 +109,30 @@ final class ToDoViewModel {
     func removeItems(at offsets: IndexSet) async {
         for index in offsets {
             await removeItem(item: items[index])
+        }
+    }
+    
+    @MainActor
+    func moveItems(from source: IndexSet, to destination: Int) async {
+        /// Store the current state in case we need to revert
+        let originalItems = items
+        
+        /// Perform the move operation locally for immediate UI feedback
+        items.move(fromOffsets: source, toOffset: destination)
+        
+        /// Update the view state to show the new order
+        viewState = .list(items)
+        
+        do {
+            /// Simulate network operation to persist the new order
+            try await simulateNetworkOperation(delay: 0.3)
+            
+            /// If successful, the items are already in the correct order
+            viewState = .list(items)
+        } catch {
+            /// If network operation fails, revert to original order
+            items = originalItems
+            viewState = .error(.moveItemsFailed)
         }
     }
     

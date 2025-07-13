@@ -1,9 +1,4 @@
-//
-//  MockData.swift
-//  ToDoApp
-//
-//  Created by Asia on 10/07/2025.
-//
+
 
 import Foundation
 

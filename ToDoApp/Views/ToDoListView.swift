@@ -16,6 +16,11 @@ struct ToDoListView: View {
                     await viewModel.removeItems(at: offsets)
                 }
             }
+            .onMove { source, destination in
+                Task {
+                    await viewModel.moveItems(from: source, to: destination)
+                }
+            }
         }
         .listRowSpacing(5)
     }
