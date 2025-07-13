@@ -107,7 +107,7 @@ private struct AddItemSheet: View {
             action: {
                 await viewModel.addItem(title: viewModel.textInput)
                 viewModel.textInput = ""
-            }
+            }, isTheSameOriginalInput: false
         )
         .presentationDetents([.medium])
         .presentationDragIndicator(.visible)
@@ -133,7 +133,8 @@ private struct EditItemSheet: View {
                     viewModel.textInput = ""
                     viewModel.editingItem = nil
                 }
-            }
+            },
+            isTheSameOriginalInput: viewModel.originalTextInput == viewModel.textInput
         )
         .presentationDetents([.medium])
         .presentationDragIndicator(.visible)
@@ -193,7 +194,8 @@ private struct EditItemSheet: View {
     TextInputView(
         text: .constant(""),
         title: "Add New Item",
-        action: { print("Action") }
+        action: { print("Action") },
+        isTheSameOriginalInput: false
     )
 }
 

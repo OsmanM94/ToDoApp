@@ -26,6 +26,8 @@ final class ToDoViewModel {
     var editingItem: ToDoItem?
     var viewState: ViewState = .empty
     
+    var originalTextInput: String = ""
+    
     @MainActor
     func loadItems() async {
         viewState = .loading
@@ -47,6 +49,7 @@ final class ToDoViewModel {
             /// 1 second delay
             try await simulateNetworkOperation(delay: 1)
             items.append(ToDoItem(textInput: title))
+            originalTextInput = textInput
             viewState = .list(items)
         } catch {
             viewState = .error(.addItemFailed)
