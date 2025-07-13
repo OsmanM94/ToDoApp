@@ -7,7 +7,7 @@ struct TextInputView: View {
     @Binding var text: String
     let title: String
     let action: () async -> Void
-    let isTheSameOriginalInput: Bool?
+    let isTheSameOriginalInput: Bool
     
     var body: some View {
         NavigationStack {
@@ -42,7 +42,7 @@ struct TextInputView: View {
                             dismiss()
                         }
                     }
-                    .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isTheSameOriginalInput ?? false)
+                    .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isTheSameOriginalInput)
                 }
             }
         }
