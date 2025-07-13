@@ -120,7 +120,7 @@ final class ToDoViewModel {
         /// Perform the move operation locally for immediate UI feedback
         items.move(fromOffsets: source, toOffset: destination)
         
-        /// Update the view state to show the new order
+        /// We then update the view state to show the new order
         viewState = .list(items)
         
         do {
@@ -130,7 +130,7 @@ final class ToDoViewModel {
             /// If successful, the items are already in the correct order
             viewState = .list(items)
         } catch {
-            /// If network operation fails, revert to original order
+            /// If network operation fails, revert to original order :)
             items = originalItems
             viewState = .error(.moveItemsFailed)
         }
