@@ -56,7 +56,7 @@ final class ToDoViewModel {
         do {
             /// 1 second delay
             try await simulateNetworkOperation(delay: 1)
-            items.append(ToDoItem(title: title))
+            items.append(ToDoItem(textInput: title))
             viewState = .list(items)
         } catch {
             viewState = .error(.addItemFailed)
@@ -124,7 +124,7 @@ final class ToDoViewModel {
     
     func startEditingItem(_ item: ToDoItem) {
         editingItem = item
-        textInput = item.title
+        textInput = item.textInput
         showEditSheet = true
     }
     

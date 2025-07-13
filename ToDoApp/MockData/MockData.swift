@@ -9,19 +9,19 @@ import Foundation
 
 extension ToDoItem {
     static let mockItems: [ToDoItem] = [
-        ToDoItem(title: "Buy groceries", isCompleted: false),
-        ToDoItem(title: "Walk the dog", isCompleted: true),
-        ToDoItem(title: "Finish project report", isCompleted: false),
-        ToDoItem(title: "Call mom", isCompleted: true),
-        ToDoItem(title: "Book dentist appointment", isCompleted: false),
-        ToDoItem(title: "Clean the house", isCompleted: false),
-        ToDoItem(title: "Pay bills", isCompleted: true),
-        ToDoItem(title: "Read a book", isCompleted: false)
+        ToDoItem(textInput: "Buy groceries", isCompleted: false),
+        ToDoItem(textInput: "Walk the dog", isCompleted: true),
+        ToDoItem(textInput: "Finish project report", isCompleted: false),
+        ToDoItem(textInput: "Call mom", isCompleted: true),
+        ToDoItem(textInput: "Book dentist appointment", isCompleted: false),
+        ToDoItem(textInput: "Clean the house", isCompleted: false),
+        ToDoItem(textInput: "Pay bills", isCompleted: true),
+        ToDoItem(textInput: "Read a book", isCompleted: false)
     ]
     
-    static let sampleCompleted = ToDoItem(title: "Completed task", isCompleted: true)
-    static let sampleIncomplete = ToDoItem(title: "Incomplete task", isCompleted: false)
-    static let sampleLongTitle = ToDoItem(title: "This is a very long task title that might wrap to multiple lines", isCompleted: false)
+    static let sampleCompleted = ToDoItem(textInput: "Completed task", isCompleted: true)
+    static let sampleIncomplete = ToDoItem(textInput: "Incomplete task", isCompleted: false)
+    static let sampleLongTitle = ToDoItem(textInput: "This is a very long task title that might wrap to multiple lines", isCompleted: false)
 }
 
 extension ToDoViewModel {

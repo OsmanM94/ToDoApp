@@ -33,10 +33,10 @@ struct ContentView: View {
                 placement: .navigationBarDrawer(displayMode: .always)
             ) 
             .onSubmit(of: .search) {
-               /// Search
+               /// Search action
             }
             .refreshable {
-               /// Refresh
+               /// Refresh action
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -90,10 +90,8 @@ private struct AddItemSheet: View {
             text: Bindable(viewModel).textInput,
             title: "Add New Item",
             action: {
-                Task {
-                    await viewModel.addItem(title: viewModel.textInput)
-                    viewModel.textInput = ""
-                }
+                await viewModel.addItem(title: viewModel.textInput)
+                viewModel.textInput = ""
             }
         )
         .presentationDetents([.medium])
@@ -113,14 +111,12 @@ private struct EditItemSheet: View {
                 if let editingItem = viewModel.editingItem {
                     let updatedItem = ToDoItem(
                         id: editingItem.id,
-                        title: viewModel.textInput,
+                        textInput: viewModel.textInput,
                         isCompleted: editingItem.isCompleted
                     )
-                    Task {
-                        await viewModel.updateItem(item: updatedItem)
-                        viewModel.textInput = ""
-                        viewModel.editingItem = nil
-                    }
+                    await viewModel.updateItem(item: updatedItem)
+                    viewModel.textInput = ""
+                    viewModel.editingItem = nil
                 }
             }
         )

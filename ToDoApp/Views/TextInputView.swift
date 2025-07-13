@@ -6,7 +6,7 @@ struct TextInputView: View {
     @Environment(\.dismiss) private var dismiss
     @Binding var text: String
     let title: String
-    let action: () -> Void
+    let action: () async -> Void
     
     var body: some View {
         NavigationStack {
@@ -17,7 +17,9 @@ struct TextInputView: View {
                     .padding()
                     .onSubmit {
                         if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                            action()
+                            Task {
+                                await action()
+                            }
                             dismiss()
                         }
                     }
@@ -33,7 +35,9 @@ struct TextInputView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
                         if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                            action()
+                            Task {
+                                await action()
+                            }
                             dismiss()
                         }
                     }

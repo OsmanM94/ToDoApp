@@ -59,7 +59,7 @@ private struct ItemTitle: View {
     let item: ToDoItem
     
     var body: some View {
-        Text(item.title)
+        Text(item.textInput)
             .strikethrough(item.isCompleted)
             .foregroundStyle(item.isCompleted ? .secondary : .primary)
     }
