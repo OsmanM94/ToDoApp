@@ -43,11 +43,11 @@ private struct CompletionButton: View {
     let viewModel: ToDoViewModel
     
     var body: some View {
-        Button(action: {
+        Button {
             Task {
                 await viewModel.toggleCompletion(item: item)
             }
-        }) {
+        } label: {
             Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
                 .foregroundStyle(item.isCompleted ? .green : .gray)
         }

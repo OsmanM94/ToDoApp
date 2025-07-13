@@ -2,7 +2,7 @@
 
 import Foundation
 
-enum ToDoError: Error, Equatable {
+enum ToDoError {
     case addItemFailed
     case removeItemFailed
     case updateItemFailed
@@ -48,6 +48,19 @@ final class ToDoViewModel {
     var showEditSheet: Bool = false
     var editingItem: ToDoItem?
     var viewState: ViewState = .empty
+    
+    @MainActor
+    func loadItems() async {
+        viewState = .loading
+        
+        do {
+            /// 1.5 seconds delay
+            try await simulateNetworkOperation(delay: 1.5)
+            viewState = items.isEmpty ? .empty : .list(items)
+        } catch {
+            viewState = .error(.loadItemsFailed)
+        }
+    }
     
     @MainActor
     func addItem(title: String) async {
@@ -106,19 +119,6 @@ final class ToDoViewModel {
             }
         } catch {
             viewState = .error(.toggleCompletionFailed)
-        }
-    }
-    
-    @MainActor
-    func loadItems() async {
-        viewState = .loading
-        
-        do {
-            /// 1.5 seconds delay
-            try await simulateNetworkOperation(delay: 1.5)
-            viewState = items.isEmpty ? .empty : .list(items)
-        } catch {
-            viewState = .error(.loadItemsFailed)
         }
     }
     
